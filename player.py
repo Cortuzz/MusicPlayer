@@ -22,6 +22,7 @@ class Player:
     def change_mute(self):
         if self.muted:
             pygame.mixer.music.set_volume(self.volume)
-            return
-
-        pygame.mixer.music.set_volume(0)
+            self.muted = False
+        else:
+            pygame.mixer.music.set_volume(0)
+            self.muted = True

@@ -10,13 +10,16 @@ for root, dirs, files in os.walk("music"):
         print(filename[-4:])
 
 
-DIR = os.path.dirname(os.path.abspath(__file__)) + "\music\\"
+DIR = os.path.dirname(os.path.abspath(__file__))
+MUSIC_DIR = DIR + "\music\\"
+GIF_DIR = DIR + "\gifs\\"
+
 WIDTH = 800
 HEIGHT = 500
 
 running = True
 gui = GUI(WIDTH, HEIGHT)
-player = Player(DIR)
+player = Player(MUSIC_DIR)
 player.load_track('Vitality.mp3')
 
 if __name__ == '__main__':
