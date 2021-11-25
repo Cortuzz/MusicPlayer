@@ -6,9 +6,7 @@ from button import *
 from player import Player
 from gui import GUI
 
-for root, dirs, files in os.walk("music"):
-    for filename in files:
-        print(filename[-4:])
+songs = []
 
 DIR = os.path.dirname(os.path.abspath(__file__))
 MUSIC_DIR = DIR + "\music\\"
@@ -25,6 +23,13 @@ player = Player(MUSIC_DIR)
 player.load_track('Vitality.mp3')
 
 if __name__ == '__main__':
+    for root, dirs, files in os.walk("music"):
+        for filename in files:
+            if filename[-4:] == '.mp3':
+                songs.append(filename)
+    
+    print(filename)
+
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -44,7 +49,7 @@ if __name__ == '__main__':
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
-                    pause_button.click(event.pos, player)
+                    pause_button.try_action(event.pos, player)
                 if event.button == 4:
                     player.change_volume(0.015)
 

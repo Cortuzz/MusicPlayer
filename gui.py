@@ -6,18 +6,24 @@ class GUI:
     def __init__(self, width, height, pause_button):
         self.width = width
         self.height = height
-        self.pause_button=pause_button
+        self.pause_button = pause_button
         pygame.init()
         pygame.display.set_caption("Music Player")
         self.screen = pygame.display.set_mode((width, height))
 
     def render_borders(self):
-        pygame.draw.line(self.screen, (255, 255, 255),
-        [self.width // 3, 0], [self.width // 3, self.height], 4)
+        # playlist part rendering
+        playlist_part = 3
+        vertical_playlist_part = 6
 
-        for i in range(1, self.height // 6):
+        pygame.draw.line(self.screen, (255, 255, 255),
+        [self.width // playlist_part, 0],
+        [self.width // playlist_part, self.height], 4)
+
+        for i in range(1, self.height // vertical_playlist_part):
             pygame.draw.line(self.screen, (255, 255, 255),
-            [0, i * self.height // 6], [self.width // 3, i * self.height // 6], 2)
+            [0, i * self.height // vertical_playlist_part],
+            [self.width // playlist_part, i * self.height // vertical_playlist_part], 2)
 
     def render_playlist(self):
         pass

@@ -30,7 +30,7 @@ class Button:
         return self.x <= x <= self.x + self.width and self.y <= y <= self.y + self.height
         # circle button
 
-    def click(self, mouse_coords, player):
+    def try_action(self, mouse_coords, player):
         mouse_x, mouse_y = mouse_coords
         if self.collision(mouse_x, mouse_y):
                 self.action(player)
