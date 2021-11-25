@@ -1,19 +1,17 @@
-import gui
-
 class Button:
-    def __init__(self, left_top, right_bottom, action):
+    def __init__(self, left_top_coordinates, width, height):
         '''
-        Input two tuples of pairs of coordinates
+        1st input is tuple with pair of coordinates
+        2st and 3d inputs are corresponding width and height
         '''
-
-        self.left_top = left_top
-        self.right_bot = right_bottom
-        self.action = action
+        self.x, self.y = left_top_coordinates
+        self.width = width
+        self.height = height
         self.is_pressed = False
 
-        self.exception_handler()
+        # self.exception_handler() #DOES NOT WORK!!!
 
-    def exception_handler():
+    def exception_handler():#TODO DA. YES.
         if not(isinstance(self.left_top, tuple) and isinstance(self.right_bottom, tuple)):
             raise TypeError(
             "Object Button takes 2 tuples but {} and {} were given".format(
@@ -25,14 +23,29 @@ class Button:
             but {} and {} were given".format(
             len(self.left_top), len(self.right_bottom)))
 
-        # TODO : check for float value
-
-    def if_pressed(self):
-        if(True):  #TODO: from gui check if mouse is on button and clicked
-            self.Press()
-
-class Pause(Button):
-    def press(self):
+    def action(self, player):
         pass
 
-a = Button(4, (56, 2))
+    def collision(self, x, y):
+        return self.x <= x <= self.x + self.width and self.y <= y <= self.y + self.height
+        # circle button
+
+    def click(self, mouse_coords, player):
+        mouse_x, mouse_y = mouse_coords
+        if self.collision(mouse_x, mouse_y):
+                self.action(player)
+
+
+class Pause(Button):
+    def action(self, player):
+        player.change_pause()
+
+
+class NextTrack(Button):
+    def action(self, player):
+        pass #TODO
+
+
+class PrevTrack(Button):
+    def action(self, player):
+        pass #TODO

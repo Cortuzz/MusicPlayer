@@ -12,10 +12,6 @@ class Player:
     def load_track(self, name):
         pygame.mixer.music.load(self.dir + name)
 
-    def play_track(self):
-        pygame.mixer.music.play()
-        self.playing = True
-
     def change_pause(self):
         if self.playing:
             if self.paused:
@@ -24,6 +20,9 @@ class Player:
             else:
                 pygame.mixer.music.pause()
                 self.paused = True
+        else:
+            pygame.mixer.music.play()
+            self.playing = True
 
     def change_volume(self, difference):
         self.volume = min(max(self.volume + difference, 0), 1)

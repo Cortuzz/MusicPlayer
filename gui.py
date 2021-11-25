@@ -1,11 +1,12 @@
 import pygame
+from button import Button
 
 
 class GUI:
-    def __init__(self, width, height):
+    def __init__(self, width, height, pause_button):
         self.width = width
         self.height = height
-
+        self.pause_button=pause_button
         pygame.init()
         pygame.display.set_caption("Music Player")
         self.screen = pygame.display.set_mode((width, height))
@@ -27,8 +28,17 @@ class GUI:
     def render_duration(self):
         pass
 
+    def render_button(self):
+        rectangle_button = pygame.Rect(
+        self.pause_button.x, self.pause_button.y,
+        self.pause_button.width, self.pause_button.height)
+        pygame.draw.rect(self.screen, (120, 78, 175), rectangle_button)
+
+    def render_track_image(self):
+        pass #TODO
+
     def screen_update(self):
         self.render_borders()
-
+        self.render_button()
         pygame.display.update()
         self.screen.fill((0, 0, 0))
