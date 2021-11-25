@@ -1,9 +1,12 @@
-import sql
 import sys
+import os
 import pygame
 
 from gui import GUI
 
+for root, dirs, files in os.walk("music"):
+    for filename in files:
+        print(filename[-4:])
 
 running = True
 WIDTH = 600
