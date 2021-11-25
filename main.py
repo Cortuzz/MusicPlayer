@@ -1,7 +1,7 @@
 import sys
 import os
 import pygame
-
+import player
 from gui import GUI
 
 for root, dirs, files in os.walk("music"):
