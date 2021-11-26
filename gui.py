@@ -45,6 +45,9 @@ class GUI:
 
             pygame.draw.rect(self.screen, (120, 78, 175), rectangle_button)
 
+    def resize_image(self):
+        pass
+
     def render_track_image(self):
         pass  # TODO
 
