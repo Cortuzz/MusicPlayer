@@ -9,9 +9,9 @@ class Button:
         self.height = height
         self.is_pressed = False
 
-        # self.exception_handler() #DOES NOT WORK!!!
+        # self.exception_handler()  # DOES NOT WORK!!!
 
-    def exception_handler():#TODO DA. YES.
+    def exception_handler():  # TODO DA. YES.
         if not(isinstance(self.left_top, tuple) and isinstance(self.right_bottom, tuple)):
             raise TypeError(
             "Object Button takes 2 tuples but {} and {} were given".format(
@@ -35,6 +35,10 @@ class Button:
         if self.collision(mouse_x, mouse_y):
                 self.action(player)
 
+    def get_coordinates(self):
+        return {'x': self.x, 'y': self.y,
+        'width': self.width, 'height': self.height}
+
 
 class Pause(Button):
     def action(self, player):
@@ -43,9 +47,9 @@ class Pause(Button):
 
 class NextTrack(Button):
     def action(self, player):
-        pass #TODO
+        player.next_track()
 
 
 class PrevTrack(Button):
     def action(self, player):
-        pass #TODO
+        player.prev_track()

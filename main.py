@@ -1,12 +1,23 @@
 import sys
 import os
+import ctypes
 import pygame
 
 from button import *
 from player import Player
 from gui import GUI
 
+
 songs = []
+for root, dirs, files in os.walk("music"):
+    for filename in files:
+        if filename[-4:] == '.mp3':
+            songs.append(filename)
+
+if not len(songs):
+    ctypes.windll.user32.MessageBoxW(
+    None, u"Folder music must contain at least 1 mp3 file", u"Error", 0)
+    exit()
 
 DIR = os.path.dirname(os.path.abspath(__file__))
 MUSIC_DIR = DIR + "\music\\"
@@ -16,20 +27,17 @@ WIDTH = 1000
 HEIGHT = 600
 
 running = True
-pause_button = Pause((566, 400), 200, 75)
 
-gui = GUI(WIDTH, HEIGHT, pause_button) # TODO : create tuples of coordinates
-player = Player(MUSIC_DIR)
-player.load_track('Vitality.mp3')
+pause_button = Pause((566, 450), 200, 75)
+next_button = NextTrack((833, 450), 75, 75)
+prev_button = PrevTrack((424, 450), 75, 75)
+
+buttons = pause_button, next_button, prev_button
+
+gui = GUI(WIDTH, HEIGHT, buttons)
+player = Player(MUSIC_DIR, songs)
 
 if __name__ == '__main__':
-    for root, dirs, files in os.walk("music"):
-        for filename in files:
-            if filename[-4:] == '.mp3':
-                songs.append(filename)
-    
-    print(filename)
-
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -49,7 +57,8 @@ if __name__ == '__main__':
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
-                    pause_button.try_action(event.pos, player)
+                    for button in buttons:
+                        button.try_action(event.pos, player)
                 if event.button == 4:
                     player.change_volume(0.015)
 
