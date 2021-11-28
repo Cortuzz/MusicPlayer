@@ -1,13 +1,10 @@
 class Button:
-    def __init__(self, left_top_coordinates, width, height):
+    def __init__(self):
         '''
         1st input is tuple with pair of coordinates
         2st and 3d inputs are corresponding width and height
         '''
-        self.x, self.y = left_top_coordinates
-        self.width = width
-        self.height = height
-        self.is_pressed = False
+        pass
 
         # self.exception_handler()  # DOES NOT WORK!!!
 
@@ -27,8 +24,7 @@ class Button:
         pass
 
     def collision(self, x, y):
-        return self.x <= x <= self.x + self.width and self.y <= y <= self.y + self.height
-        # circle button
+        pass
 
     def try_action(self, mouse_coords, player):
         mouse_x, mouse_y = mouse_coords
@@ -36,20 +32,46 @@ class Button:
                 self.action(player)
 
     def get_coordinates(self):
+        pass
+
+
+class RectButton(Button): # TODO: center coordinates
+    def __init__(self, left_top_coordinates, width, height):
+        self.x, self.y = left_top_coordinates
+        self.width = width
+        self.height = height # create color
+
+    def collision(self, x, y):
+        return self.x <= x <= self.x + self.width and self.y <= y <= self.y + self.height
+
+    def get_coordinates(self):
         return {'x': self.x, 'y': self.y,
         'width': self.width, 'height': self.height}
 
 
-class Pause(Button):
+class CircleButton(Button):
+    def __init__(self, center_coordinates, radius):
+        self.x, self.y = center_coordinates
+        self.radius = radius
+
+    def collision(self, x, y):
+        return (x - self.x)**2 + (y - self.y)**2 <= self.radius**2
+
+    def get_coordinates(self):
+        return {'x': self.x, 'y': self.y,
+        'radius': self.radius}
+
+
+class Pause(CircleButton):
     def action(self, player):
         player.change_pause()
 
 
-class NextTrack(Button):
+class NextTrack(CircleButton):
     def action(self, player):
         player.next_track()
 
 
-class PrevTrack(Button):
+class PrevTrack(CircleButton):
     def action(self, player):
         player.prev_track()

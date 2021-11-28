@@ -1,4 +1,5 @@
 import pygame
+from mutagen.mp3 import MP3
 
 
 class Player:
@@ -11,9 +12,13 @@ class Player:
         self.playing = False
         self.paused = False
         self.muted = False
+        self.length = 0
 
     def load_track(self, name):
         pygame.mixer.music.load(self.dir + name)
+        audio = MP3(self.dir + name)
+
+        self.length = audio.info.length
 
     def change_pause(self):
         if self.playing:
@@ -68,4 +73,5 @@ class Player:
             self.muted = True
 
     def get_duration(self):
-        return pygame.mixer.music.get_pos()
+        return {'current_time': pygame.mixer.music.get_pos(),
+        'total_time': self.length}

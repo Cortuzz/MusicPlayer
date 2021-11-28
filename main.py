@@ -28,16 +28,17 @@ HEIGHT = 600
 
 running = True
 
-pause_button = Pause((566, 450), 200, 75)
-next_button = NextTrack((833, 450), 75, 75)
-prev_button = PrevTrack((424, 450), 75, 75)
+pause_button = Pause((WIDTH * 2 // 3, HEIGHT*2.5//3), (WIDTH + HEIGHT) // 32)
+next_button = NextTrack((WIDTH * 2 // 3+3*(WIDTH + HEIGHT) // 64 + WIDTH // 100, HEIGHT*2.5//3), (WIDTH + HEIGHT) // 64)
+prev_button = PrevTrack((WIDTH * 2 // 3-3*(WIDTH + HEIGHT) // 64 - WIDTH // 100, HEIGHT*2.5//3), (WIDTH + HEIGHT) // 64)
 
-buttons = pause_button, next_button, prev_button
+buttons = [pause_button, next_button, prev_button]
 
 gui = GUI(WIDTH, HEIGHT, buttons)
 player = Player(MUSIC_DIR, songs)
 
 if __name__ == '__main__':
+    player.load_track(songs[0])
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -65,4 +66,5 @@ if __name__ == '__main__':
                 elif event.button == 5:
                     player.change_volume(-0.015)
 
-        gui.screen_update()
+        time = player.get_duration()
+        gui.screen_update(time['current_time'], time['total_time'], 'Vitality.jpg')
