@@ -72,6 +72,10 @@ class Player:
             pygame.mixer.music.set_volume(0)
             self.muted = True
 
+    def check_end(self):
+        if not pygame.mixer.music.get_busy() and not self.paused and self.playing:
+            self.next_track()
+
     def get_duration(self):
         return {'current_time': pygame.mixer.music.get_pos(),
         'total_time': self.length}

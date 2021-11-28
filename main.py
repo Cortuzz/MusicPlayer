@@ -66,5 +66,6 @@ if __name__ == '__main__':
                 elif event.button == 5:
                     player.change_volume(-0.015)
 
+        player.check_end()
         time = player.get_duration()
         gui.screen_update(time['current_time'], time['total_time'], 'Vitality.jpg')
