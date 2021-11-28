@@ -53,6 +53,11 @@ if __name__ == '__main__':
                 elif event.key == pygame.K_DOWN:
                     player.change_volume(-0.05)
 
+                if event.key == pygame.K_RIGHT:
+                    player.change_position(5)
+                elif event.key == pygame.K_LEFT:
+                    player.change_position(-5)
+
                 if event.key == pygame.K_m:
                     player.change_mute()
 
