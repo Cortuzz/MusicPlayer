@@ -74,15 +74,15 @@ class GUI:
                 pygame.draw.circle(self.screen, (55, 55, 91),
                 (coordinates['x'], coordinates['y']), coordinates['radius'])
 
-    def render_track_image(self, image_name,x,y):
+    def render_track_image(self, image_name, x, y):
         surface=pygame.image.load(image_name)
-        surface = pygame.transform.scale(surface, (self.width // 3,self.width // 3))
-        image_rect=surface.get_rect(topleft=(x,y))
+        surface = pygame.transform.scale(surface, (self.width // 3, self.width // 3))
+        image_rect=surface.get_rect(topleft=(x, y))
         self.screen.blit(surface,image_rect)
 
     def screen_update(self, time, total_time, image_name):
         self.render_track_image(
-        'images/{}'.format(image_name), self.width // 2, self.height//8)
+        'images/{}'.format(image_name), self.width // 2, self.height // 12)
 
         self.render_borders()
         self.render_buttons()

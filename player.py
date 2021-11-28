@@ -13,7 +13,7 @@ class Player:
         self.paused = False
         self.muted = False
         self.length = 0
-        self.saved_time = 0
+        self.time = 0
 
     def load_track(self, name):
         pygame.mixer.music.load(self.dir + name)
@@ -61,7 +61,7 @@ class Player:
         if self.playing and self.paused:
             self.playing = False
 
-        self.saved_time = 0
+        self.time = 0
 
     def change_volume(self, difference):
         self.volume = min(max(self.volume + difference, 0), 1)
@@ -77,17 +77,17 @@ class Player:
 
     def change_position(self, difference):
         current_position = self.get_duration()['current_time']
-        self.saved_time = current_position + difference * 1000
-        
-        if self.saved_time < 0:
-            self.saved_time = 0
+        self.time = current_position + difference * 1000
 
-        pygame.mixer.music.play(0, self.saved_time / 1000)
+        if self.time < 0:
+            self.time = 0
+
+        pygame.mixer.music.play(0, self.time / 1000)
 
     def check_end(self):
         if not pygame.mixer.music.get_busy() and not self.paused and self.playing:
             self.next_track()
 
     def get_duration(self):
-        return {'current_time': self.saved_time + pygame.mixer.music.get_pos(),
+        return {'current_time': self.time + pygame.mixer.music.get_pos(),
         'total_time': self.length}
