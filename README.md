@@ -1,2 +1,3 @@
 # Music Player
-Mp3 music player by @Cortuzz and @Ssslakter (HITs Production)
+Some pet projecr created by @Cortuzz and @[SO_AUTOR_NAME]
+
