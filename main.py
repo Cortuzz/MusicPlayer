@@ -36,6 +36,7 @@ buttons = [pause_button, next_button, prev_button]
 
 gui = GUI(WIDTH, HEIGHT, buttons)
 player = Player(MUSIC_DIR, songs)
+clock = pygame.time.Clock()
 
 if __name__ == '__main__':
     player.load_track(songs[0])
@@ -74,3 +75,4 @@ if __name__ == '__main__':
         player.check_end()
         time = player.get_duration()
         gui.screen_update(time['current_time'], time['total_time'], 'Vitality.jpg')
+        clock.tick(30)

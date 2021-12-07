@@ -15,6 +15,8 @@ class Player:
         self.length = 0
         self.time = 0
 
+        self.change_volume()
+
     def load_track(self, name):
         pygame.mixer.music.load(self.dir + name)
         audio = MP3(self.dir + name)
@@ -63,7 +65,7 @@ class Player:
 
         self.time = 0
 
-    def change_volume(self, difference):
+    def change_volume(self, difference=0):
         self.volume = min(max(self.volume + difference, 0), 1)
         pygame.mixer.music.set_volume(self.volume)
 
@@ -82,7 +84,7 @@ class Player:
         if self.time < 0:
             self.time = 0
 
-        pygame.mixer.music.play(0, self.time / 1000)
+        pygame.mixer.music.play(0, self.time // 1000)
 
     def check_end(self):
         if not pygame.mixer.music.get_busy() and not self.paused and self.playing:
