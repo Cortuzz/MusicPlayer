@@ -9,7 +9,10 @@ class Button:
         # self.exception_handler()  # DOES NOT WORK!!!
 
     def exception_handler():  # TODO DA. YES.
-        if not(isinstance(self.left_top, tuple) and isinstance(self.right_bottom, tuple)):
+        if not(isinstance(
+                self.left_top, tuple) and
+                isinstance(self.right_bottom, tuple)
+            ):
             raise TypeError(
             "Object Button takes 2 tuples but {} and {} were given".format(
             type(self.left_top), type(self.right_bottom)))
@@ -42,7 +45,9 @@ class RectButton(Button): # TODO: center coordinates
         self.height = height # create color
 
     def collision(self, x, y):
-        return self.x <= x <= self.x + self.width and self.y <= y <= self.y + self.height
+        return \
+            self.x <= x <= self.x + self.width and \
+            self.y <= y <= self.y + self.height
 
     def get_coordinates(self):
         return {'x': self.x, 'y': self.y,
