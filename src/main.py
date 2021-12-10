@@ -29,12 +29,12 @@ HEIGHT = 600
 running = True
 
 pause_button = \
-    Pause((WIDTH*2 // 3, HEIGHT*2.5//3), (WIDTH + HEIGHT) // 32)
+    Pause((WIDTH*2 // 3, HEIGHT*2.5 // 3), (WIDTH + HEIGHT) // 32)
 
 next_button = NextTrack(
         (
             WIDTH*2 // 3 + 3*(WIDTH + HEIGHT) // 64 + WIDTH // 100,
-            HEIGHT*2.5//3
+            HEIGHT*2.5 // 3
         ),
         (WIDTH + HEIGHT) // 64
     )
@@ -42,7 +42,7 @@ next_button = NextTrack(
 prev_button = PrevTrack(
         (
             WIDTH*2 // 3 - 3*(WIDTH + HEIGHT) // 64 - WIDTH // 100,
-            HEIGHT*2.5//3
+            HEIGHT*2.5 // 3
         ),
         (WIDTH + HEIGHT) // 64
     )

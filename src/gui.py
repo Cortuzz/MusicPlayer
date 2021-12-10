@@ -75,9 +75,9 @@ class GUI:
                 (coordinates['x'], coordinates['y']), coordinates['radius'])
 
     def render_track_image(self, image_name, x, y):
-        surface=pygame.image.load(image_name)
+        surface = pygame.image.load(image_name)
         surface = pygame.transform.scale(surface, (self.width // 3, self.width // 3))
-        image_rect=surface.get_rect(topleft=(x, y))
+        image_rect = surface.get_rect(topleft = (x, y))
         self.screen.blit(surface,image_rect)
 
     def screen_update(self, time, total_time, image_name):
