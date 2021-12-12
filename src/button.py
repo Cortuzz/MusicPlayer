@@ -37,12 +37,16 @@ class Button:
     def get_coordinates(self):
         pass
 
+    def get_color(self):
+        return self.color
+
 
 class RectButton(Button): # TODO: center coordinates
-    def __init__(self, left_top_coordinates, width, height):
+    def __init__(self, left_top_coordinates, width, height, color=(55, 55, 91)):
         self.x, self.y = left_top_coordinates
         self.width = width
         self.height = height # create color
+        self.color = color
 
     def collision(self, x, y):
         return \
@@ -55,9 +59,10 @@ class RectButton(Button): # TODO: center coordinates
 
 
 class CircleButton(Button):
-    def __init__(self, center_coordinates, radius):
+    def __init__(self, center_coordinates, radius, color=(55, 55, 91)):
         self.x, self.y = center_coordinates
         self.radius = radius
+        self.color = color
 
     def collision(self, x, y):
         return (x - self.x)**2 + (y - self.y)**2 <= self.radius**2
@@ -80,3 +85,15 @@ class NextTrack(CircleButton):
 class PrevTrack(CircleButton):
     def action(self, player):
         player.prev_track()
+
+
+class Bar(RectButton):
+    def action(self, player, track_percentage):
+        player.change_position(track_percentage, True)
+
+    def try_action(self, mouse_coords, player):
+        mouse_x, mouse_y = mouse_coords
+        track_percentage = (mouse_x - self.x) / self.width
+
+        if self.collision(mouse_x, mouse_y):
+                self.action(player, track_percentage)

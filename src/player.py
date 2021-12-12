@@ -77,9 +77,13 @@ class Player:
             pygame.mixer.music.set_volume(0)
             self.muted = True
 
-    def change_position(self, difference):
+    def change_position(self, difference, is_percentage=False):
         current_position = self.get_duration()['current_time']
         self.time = current_position + difference * 1000
+
+        if is_percentage:
+            print(difference, self.length)
+            self.time = 1000 * difference * self.length
 
         if self.time < 0:
             self.time = 0

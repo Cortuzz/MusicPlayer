@@ -60,23 +60,49 @@ class GUI:
 
         self.screen.blit(total_time, (2.6 * self.width // 3, 2.1 * self.height // 3))
 
+    def render_duration_border(self):
+        pygame.draw.circle(self.screen, (255, 255, 255),
+        (1.45 * self.width // 3, 2.15 * self.height // 3), 4)
+
+        pygame.draw.line(self.screen,(255,255,255),
+        [1.45 * self.width // 3, 2.15 * self.height // 3 - 1],
+        [2.55 * self.width // 3, 2.15 * self.height // 3 - 1], 8)
+
+        pygame.draw.circle(self.screen, (255, 255, 255),
+        (2.55 * self.width // 3, 2.15 * self.height // 3), 4)
+
     def render_duration(self, time, total_time):
+        percentage = time / total_time / 1000
+        coordinate = percentage * (1.1 * self.width // 3) + 1.45 * self.width // 3
+
         pygame.draw.circle(self.screen, (55, 55, 91),
-        (500, 300), 4)
+        (1.45 * self.width // 3, 2.15 * self.height // 3), 3)
+
+        pygame.draw.circle(self.screen, (55, 55, 91),
+        (2.55 * self.width // 3, 2.15 * self.height // 3), 3)
+
+        # active part
+        pygame.draw.line(self.screen,(55, 55, 91),
+        [1.45 * self.width // 3, 2.15 * self.height // 3 - 1],
+        [coordinate, 2.15 * self.height // 3 - 1], 6)
+
+        pygame.draw.circle(self.screen, (55, 55, 91),
+        (coordinate, 2.15 * self.height // 3), 5)
 
     def render_buttons(self):
         for button in self.buttons:
             coordinates = button.get_coordinates()
+            color = button.get_color()
 
             if isinstance(button, RectButton):
                 rectangle_button = pygame.Rect(
                 coordinates['x'], coordinates['y'],
                 coordinates['width'], coordinates['height'])
 
-                pygame.draw.rect(self.screen, (55, 55, 91), rectangle_button)
+                pygame.draw.rect(self.screen, color, rectangle_button)
 
             if isinstance(button, CircleButton):
-                pygame.draw.circle(self.screen, (55, 55, 91),
+                pygame.draw.circle(self.screen, color,
                 (coordinates['x'], coordinates['y']), coordinates['radius'])
 
     def render_track_image(self, image_name, x, y):
@@ -90,11 +116,13 @@ class GUI:
         'images/{}'.format(image_name), self.width // 2, self.height // 12)
 
         self.render_borders()
-        self.render_buttons()
         self.render_time(time, total_time)
+        self.render_buttons()
+        self.render_duration_border()
         self.render_duration(time, total_time)
+
+
         pygame.display.update()
         self.screen.fill((98, 97, 136))
 
-        print("tick " + str(pygame.time.get_ticks()))
         self.clock.tick(15)

@@ -45,7 +45,11 @@ prev_button = PrevTrack(
         ),
         (WIDTH + HEIGHT) // 64)
 
-buttons = [pause_button, next_button, prev_button]
+bar = Bar(
+    (1.45 * WIDTH // 3, 2.14 * HEIGHT // 3 - 1),
+    1.10 * WIDTH // 3, 6, (255, 255, 255))
+
+buttons = [pause_button, next_button, prev_button, bar]
 
 gui = GUI(WIDTH, HEIGHT, buttons)
 player = Player(MUSIC_DIR, songs)
@@ -86,4 +90,4 @@ if __name__ == '__main__':
 
         player.check_end()
         time = player.get_duration()
-        gui.screen_update(time['current_time'], time['total_time'], 'Vitality.jpg')
+        gui.screen_update(time['current_time'], time['total_time'],'Vitality.jpg')
