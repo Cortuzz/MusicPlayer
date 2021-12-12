@@ -87,7 +87,7 @@ class PrevTrack(CircleButton):
         player.prev_track()
 
 
-class Bar(RectButton):
+class DurationBar(RectButton):
     def action(self, player, track_percentage):
         player.change_position(track_percentage, True)
 
@@ -97,3 +97,15 @@ class Bar(RectButton):
 
         if self.collision(mouse_x, mouse_y):
                 self.action(player, track_percentage)
+
+
+class VolumeBar(RectButton):
+    def action(self, player, percentage):
+        player.change_volume(percentage, True)
+
+    def try_action(self, mouse_coords, player):
+        mouse_x, mouse_y = mouse_coords
+        percentage = 1 - (mouse_y - self.y) / self.height
+
+        if self.collision(mouse_x, mouse_y):
+                self.action(player, percentage)

@@ -45,11 +45,15 @@ prev_button = PrevTrack(
         ),
         (WIDTH + HEIGHT) // 64)
 
-bar = Bar(
+duration_bar = DurationBar(
     (1.45 * WIDTH // 3, 2.14 * HEIGHT // 3 - 1),
     1.10 * WIDTH // 3, 6, (255, 255, 255))
 
-buttons = [pause_button, next_button, prev_button, bar]
+volume_bar = VolumeBar(
+    (WIDTH // 1.1 - 4, HEIGHT // 10),
+    8, HEIGHT // 1.6 - HEIGHT // 10, (255, 255, 255))
+
+buttons = [pause_button, next_button, prev_button, duration_bar, volume_bar]
 
 gui = GUI(WIDTH, HEIGHT, buttons)
 player = Player(MUSIC_DIR, songs)
@@ -83,11 +87,13 @@ if __name__ == '__main__':
                     for button in buttons:
                         button.try_action(event.pos, player)
                 if event.button == 4:
-                    player.change_volume(0.015)
+                    player.change_volume(0.03)
 
                 elif event.button == 5:
-                    player.change_volume(-0.015)
+                    player.change_volume(-0.03)
 
         player.check_end()
         time = player.get_duration()
-        gui.screen_update(time['current_time'], time['total_time'],'Vitality.jpg')
+        gui.screen_update(time['current_time'], time['total_time'],
+        'Vitality.jpg', player.get_volume(), player.get_songs()[0],
+        player.get_songs()[1])

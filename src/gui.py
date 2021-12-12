@@ -16,8 +16,7 @@ class GUI:
         pygame.display.set_caption("Music Player")
         self.screen = pygame.display.set_mode((width, height))
 
-    def render_borders(self):
-        # playlist part rendering
+    def render_playlist(self, tracks, current_track_index):
         playlist_part = 3
         vertical_playlist_part = 6
 
@@ -30,12 +29,23 @@ class GUI:
             [0, i * self.height // vertical_playlist_part],
             [self.width // playlist_part, i * self.height // vertical_playlist_part], 2)
 
+        for i in range(current_track_index, len(tracks)):
+            song_name = self.font.render(
+            tracks[i].split('.mp3')[0], False, (14, 18, 49))
 
-    def render_playlist(self):
-        pass
+            self.screen.blit(song_name,
+            (0.1 * self.width / playlist_part,
+            (i - current_track_index) * self.height // vertical_playlist_part +
+            self.height // vertical_playlist_part // 2 - 8))
 
-    def render_volume(self):
-        pass
+        for i in range(current_track_index):
+            song_name = self.font.render(
+            tracks[i].split('.mp3')[0], False, (14, 18, 49))
+
+            self.screen.blit(song_name,
+            (0.1 * self.width / playlist_part,
+            (i + len(tracks) - current_track_index) * self.height //
+            vertical_playlist_part + self.height // vertical_playlist_part // 2 - 8))
 
     def convert_to_time(self, time):
         if time < 0:
@@ -64,7 +74,7 @@ class GUI:
         pygame.draw.circle(self.screen, (255, 255, 255),
         (1.45 * self.width // 3, 2.15 * self.height // 3), 4)
 
-        pygame.draw.line(self.screen,(255,255,255),
+        pygame.draw.line(self.screen, (255, 255, 255),
         [1.45 * self.width // 3, 2.15 * self.height // 3 - 1],
         [2.55 * self.width // 3, 2.15 * self.height // 3 - 1], 8)
 
@@ -78,9 +88,6 @@ class GUI:
         pygame.draw.circle(self.screen, (55, 55, 91),
         (1.45 * self.width // 3, 2.15 * self.height // 3), 3)
 
-        pygame.draw.circle(self.screen, (55, 55, 91),
-        (2.55 * self.width // 3, 2.15 * self.height // 3), 3)
-
         # active part
         pygame.draw.line(self.screen,(55, 55, 91),
         [1.45 * self.width // 3, 2.15 * self.height // 3 - 1],
@@ -88,6 +95,35 @@ class GUI:
 
         pygame.draw.circle(self.screen, (55, 55, 91),
         (coordinate, 2.15 * self.height // 3), 5)
+
+    def render_volume_border(self):
+        pygame.draw.circle(self.screen, (255, 255, 255),
+        (self.width // 1.1, self.height // 10), 4)
+
+        pygame.draw.line(self.screen, (255, 255, 255),
+        [self.width // 1.1 - 1, self.height // 10],
+        [self.width // 1.1 - 1, self.height // 1.6], 8)
+
+        pygame.draw.circle(self.screen, (255, 255, 255),
+        (self.width // 1.1, self.height // 1.6), 4)
+
+    def render_volume(self, volume, is_muted=False):
+        volume_position = self.height // 1.6 - \
+        volume * (self.height // 1.6 - self.height // 10)
+
+        color = (volume * 255, 55, 91)
+        if is_muted:
+            color = (128, 128, 128)
+
+        pygame.draw.circle(self.screen, color,
+        (self.width // 1.1, volume_position), 5)
+
+        pygame.draw.line(self.screen, color,
+        [self.width // 1.1 - 1, volume_position],
+        [self.width // 1.1 - 1, self.height // 1.6], 6)
+
+        pygame.draw.circle(self.screen, color,
+        (self.width // 1.1, self.height // 1.6), 3)
 
     def render_buttons(self):
         for button in self.buttons:
@@ -109,17 +145,19 @@ class GUI:
         surface = pygame.image.load(image_name)
         surface = pygame.transform.scale(surface, (self.width // 3, self.width // 3))
         image_rect = surface.get_rect(topleft = (x, y))
-        self.screen.blit(surface,image_rect)
+        self.screen.blit(surface, image_rect)
 
-    def screen_update(self, time, total_time, image_name):
+    def screen_update(self, time, total_time, image_name, volume_stat, tracks, index):
         self.render_track_image(
         'images/{}'.format(image_name), self.width // 2, self.height // 12)
 
-        self.render_borders()
         self.render_time(time, total_time)
         self.render_buttons()
         self.render_duration_border()
         self.render_duration(time, total_time)
+        self.render_volume_border()
+        self.render_volume(volume_stat[0], volume_stat[1])
+        self.render_playlist(tracks, index)
 
 
         pygame.display.update()

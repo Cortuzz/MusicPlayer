@@ -65,8 +65,12 @@ class Player:
 
         self.time = 0
 
-    def change_volume(self, difference=0):
-        self.volume = min(max(self.volume + difference, 0), 1)
+    def change_volume(self, difference=0, is_percentage=False):
+        if is_percentage:
+            self.volume = difference
+        else:
+            self.volume = min(max(self.volume + difference, 0), 1)
+
         pygame.mixer.music.set_volume(self.volume)
 
     def change_mute(self):
@@ -82,7 +86,6 @@ class Player:
         self.time = current_position + difference * 1000
 
         if is_percentage:
-            print(difference, self.length)
             self.time = 1000 * difference * self.length
 
         if self.time < 0:
@@ -103,3 +106,9 @@ class Player:
     def get_duration(self):
         return {'current_time': self.time + pygame.mixer.music.get_pos(),
         'total_time': self.length}
+
+    def get_volume(self):
+        return self.volume, self.muted
+
+    def get_songs(self):
+        return self.songs, self.current_song_index
