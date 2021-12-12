@@ -9,6 +9,7 @@ class GUI:
         self.buttons = buttons
 
         pygame.init()
+        self.clock = pygame.time.Clock()
         pygame.font.init()
 
         self.font = pygame.font.Font(None, (self.width + self.height) // 50)
@@ -45,7 +46,7 @@ class GUI:
 
         return minutes, seconds
 
-    def render_duration(self, time, total_time):
+    def render_time(self, time, total_time):
         time //= 1000
         minutes, seconds = self.convert_to_time(time)
         time = self.font.render(
@@ -58,6 +59,10 @@ class GUI:
         self.screen.blit(time, (1.25 * self.width // 3, 2.1 * self.height // 3))
 
         self.screen.blit(total_time, (2.6 * self.width // 3, 2.1 * self.height // 3))
+
+    def render_duration(self, time, total_time):
+        pygame.draw.circle(self.screen, (55, 55, 91),
+        (500, 300), 4)
 
     def render_buttons(self):
         for button in self.buttons:
@@ -86,6 +91,10 @@ class GUI:
 
         self.render_borders()
         self.render_buttons()
+        self.render_time(time, total_time)
         self.render_duration(time, total_time)
         pygame.display.update()
         self.screen.fill((98, 97, 136))
+
+        print("tick " + str(pygame.time.get_ticks()))
+        self.clock.tick(15)

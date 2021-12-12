@@ -36,16 +36,14 @@ next_button = NextTrack(
             WIDTH*2 // 3 + 3*(WIDTH + HEIGHT) // 64 + WIDTH // 100,
             HEIGHT*2.5 // 3
         ),
-        (WIDTH + HEIGHT) // 64
-    )
+        (WIDTH + HEIGHT) // 64)
 
 prev_button = PrevTrack(
         (
             WIDTH*2 // 3 - 3*(WIDTH + HEIGHT) // 64 - WIDTH // 100,
             HEIGHT*2.5 // 3
         ),
-        (WIDTH + HEIGHT) // 64
-    )
+        (WIDTH + HEIGHT) // 64)
 
 buttons = [pause_button, next_button, prev_button]
 
@@ -88,6 +86,4 @@ if __name__ == '__main__':
 
         player.check_end()
         time = player.get_duration()
-        gui.screen_update(
-            time['current_time'], time['total_time'], 'Vitality.jpg'
-        )
+        gui.screen_update(time['current_time'], time['total_time'], 'Vitality.jpg')
