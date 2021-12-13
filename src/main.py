@@ -57,6 +57,7 @@ buttons = [pause_button, next_button, prev_button, duration_bar, volume_bar]
 
 gui = GUI(WIDTH, HEIGHT, buttons)
 player = Player(MUSIC_DIR, songs)
+clock = pygame.time.Clock()
 
 if __name__ == '__main__':
     player.load_track(songs[0])

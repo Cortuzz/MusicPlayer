@@ -91,7 +91,7 @@ class Player:
         if self.time < 0:
             self.time = 0
 
-        pygame.mixer.music.play(0, self.time / 1000)
+        pygame.mixer.music.play(0, self.time // 1000)
 
         if self.paused:
             pygame.mixer.music.pause()
