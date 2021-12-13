@@ -1,27 +1,6 @@
 class Button:
     def __init__(self):
-        '''
-        1st input is tuple with pair of coordinates
-        2st and 3d inputs are corresponding width and height
-        '''
         pass
-
-        # self.exception_handler()  # DOES NOT WORK!!!
-
-    def exception_handler():  # TODO DA. YES.
-        if not(isinstance(
-                self.left_top, tuple) and
-                isinstance(self.right_bottom, tuple)
-            ):
-            raise TypeError(
-            "Object Button takes 2 tuples but {} and {} were given".format(
-            type(self.left_top), type(self.right_bottom)))
-
-        if not (len(self.left_top) == 2 and len(self.right_bottom) == 2):
-            raise ValueError(
-            "Tuples left_top and right_bottom contains 2 coordinates \
-            but {} and {} were given".format(
-            len(self.left_top), len(self.right_bottom)))
 
     def action(self, player):
         pass
