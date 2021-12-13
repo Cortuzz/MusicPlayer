@@ -20,11 +20,11 @@ class Button:
         return self.color
 
 
-class RectButton(Button): # TODO: center coordinates
+class RectButton(Button):
     def __init__(self, left_top_coordinates, width, height, color=(55, 55, 91)):
         self.x, self.y = left_top_coordinates
         self.width = width
-        self.height = height # create color
+        self.height = height
         self.color = color
 
     def collision(self, x, y):

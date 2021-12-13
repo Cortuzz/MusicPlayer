@@ -7,9 +7,7 @@ class ImageDrawer:
 
     def load_image(self, song_name):
         if not path.isfile('./images' + song_name + '.jpg'):
-                '''TODO :
-                create blank square file
-                with name song_name.jpg in images folder
-                '''
+        # TODO : create blank square file with name song_name.jpg in images folder
+
         image = pygame.image.load('./images' + song_name + '.jpg')
         return image
