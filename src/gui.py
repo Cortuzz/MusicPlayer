@@ -30,8 +30,8 @@ class GUI:
             [self.width // playlist_part, i * self.height // vertical_playlist_part], 2)
 
         for i in range(current_track_index, len(tracks)):
-            song_name = self.font.render(
-            tracks[i].split('.mp3')[0], False, (14, 18, 49))
+            song_name = self.font.render(tracks[i].split('.mp3')[0], False,
+            (14, 18, 100) if i == current_track_index else (14, 18, 49))
 
             self.screen.blit(song_name,
             (0.1 * self.width / playlist_part,
@@ -158,7 +158,6 @@ class GUI:
         self.render_volume_border()
         self.render_volume(volume_stat[0], volume_stat[1])
         self.render_playlist(tracks, index)
-
 
         pygame.display.update()
         self.screen.fill((98, 97, 136))
