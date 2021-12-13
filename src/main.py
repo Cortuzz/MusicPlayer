@@ -6,6 +6,7 @@ import pygame
 from button import *
 from player import Player
 from gui import GUI
+from handler import Handler
 
 
 songs = []
@@ -29,19 +30,19 @@ HEIGHT = 600
 running = True
 
 pause_button = \
-    Pause((WIDTH*2 // 3, HEIGHT*2.5 // 3), (WIDTH + HEIGHT) // 32)
+    Pause((WIDTH * 2 // 3, HEIGHT * 2.5 // 3), (WIDTH + HEIGHT) // 32)
 
 next_button = NextTrack(
         (
-            WIDTH*2 // 3 + 3*(WIDTH + HEIGHT) // 64 + WIDTH // 100,
-            HEIGHT*2.5 // 3
+            WIDTH * 2 // 3 + 3 * (WIDTH + HEIGHT) // 64 + WIDTH // 100,
+            HEIGHT * 2.5 // 3
         ),
         (WIDTH + HEIGHT) // 64)
 
 prev_button = PrevTrack(
         (
-            WIDTH*2 // 3 - 3*(WIDTH + HEIGHT) // 64 - WIDTH // 100,
-            HEIGHT*2.5 // 3
+            WIDTH * 2 // 3 - 3 * (WIDTH + HEIGHT) // 64 - WIDTH // 100,
+            HEIGHT * 2.5 // 3
         ),
         (WIDTH + HEIGHT) // 64)
 
@@ -57,7 +58,7 @@ buttons = [pause_button, next_button, prev_button, duration_bar, volume_bar]
 
 gui = GUI(WIDTH, HEIGHT, buttons)
 player = Player(MUSIC_DIR, songs)
-clock = pygame.time.Clock()
+handler = Handler(player, buttons)
 
 if __name__ == '__main__':
     player.load_track(songs[0])
@@ -66,32 +67,10 @@ if __name__ == '__main__':
             if event.type == pygame.QUIT:
                 sys.exit()
 
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_SPACE:
-                    player.change_pause()
-
-                if event.key == pygame.K_UP:
-                    player.change_volume(0.05)
-                elif event.key == pygame.K_DOWN:
-                    player.change_volume(-0.05)
-
-                if event.key == pygame.K_RIGHT:
-                    player.change_position(5)
-                elif event.key == pygame.K_LEFT:
-                    player.change_position(-5)
-
-                if event.key == pygame.K_m:
-                    player.change_mute()
-
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if event.button == 1:
-                    for button in buttons:
-                        button.try_action(event.pos, player)
-                if event.button == 4:
-                    player.change_volume(0.03)
-
-                elif event.button == 5:
-                    player.change_volume(-0.03)
+            elif event.type == pygame.KEYDOWN:
+                handler.keyboard_events(event)
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                handler.mouse_events(event)
 
         player.check_end()
         time = player.get_duration()
